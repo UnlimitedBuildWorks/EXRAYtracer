@@ -1,0 +1,78 @@
+color bodycolor1 {
+type 0
+rgb 0.8 0.498 0.196 /* Gold */
+fd 0.7
+fh 0.9
+hm 3
+hc 0.4
+}
+
+color big_color {
+type 0
+rgb .4196 0.5569 .1373 /* Medium Forest Green */
+rgb 1,0,0
+fd 0.9
+fh 0.8
+hm 0
+hc 6
+}
+
+color middle_color {
+type 0
+rgb .6235 .3725 .6235 /* Blue Violet */
+rgb 0,1,0
+fd 0.9
+fh 0.8
+hm 0
+hc 6
+}
+
+color small_color {
+type 0
+rgb .8471 .8471 .7490 /* Wheat */
+rgb 0,0,1
+fd 0.9
+fh 0.8
+hm 0
+hc 6
+}
+
+color NavyBlue {
+type 1
+rgb 0.137 0.137 0.557
+fd 0.3
+fh 0.8
+hm 0
+hc 4
+fs1 0.7
+}
+
+color LimeGreen {
+type 2
+rgb 0.196 0.8 0.196
+fd 0.2
+fh 0.9
+hm 0
+hc 4
+fs2 0.9
+t0 10
+n 1.8
+}
+
+color Pink {
+type 0
+rgb 0.737255 0.560784 0.560784 /* Pink */
+fd 0.7
+fh 0.9
+hm 0
+hc 6
+}
+
+color white {
+type 0
+rgb 1 1 1
+fd 0.9
+fh 0.8
+hm 0
+hc 6
+}

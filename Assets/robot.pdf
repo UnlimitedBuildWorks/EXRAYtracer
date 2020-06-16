@@ -1,0 +1,124 @@
+init {
+rbph 0 0 0 
+oxyz 0 0 0
+sg 1
+scm bodycolor1
+}
+
+primitive ball1 {
+kind 3
+pabc 2 2 2
+}
+
+primitive whiteball {
+kind 3
+pabc 5 5 5
+scm white
+}
+
+primitive part1 {
+kind 3
+pabc 1e+10 2 2
+}
+
+primitive part2 {
+kind 1
+pabc 23 2.01 2.01
+}
+
+primitive part3 {
+kind 3
+pabc 2 1e+10 2
+}
+
+primitive part4 {
+kind 1
+pabc 2.01 35.5 2.01
+}
+
+primitive cube1 {
+kind 1
+pabc 23 37.5 23
+}
+
+primitive cube2 {
+kind 1
+pabc 23 35.5 25
+}
+
+primitive part5 {
+kind 1
+pabc 17 2.01 2.01
+}
+
+primitive part6 {
+kind 1
+pabc 2.01 30.5 2.01
+}
+
+primitive cube3 {
+kind 1
+pabc 17 32.5 17
+}
+
+primitive cube4 {
+kind 1
+pabc 17 30.5 19
+}
+
+primitive legpart {
+kind 3
+pabc 7 10 20
+}
+
+primitive legplane {
+kind 2
+pabc 0 -1 0
+}
+
+primitive head1 {
+kind 3
+pabc 10 10 10
+}
+
+primitive head2 {
+kind 1
+pabc 5 5 10
+sg -1
+}
+
+primitive head3 {
+kind 3
+pabc 10 1e+10 10
+}
+
+primitive head4 {
+kind 1
+pabc 10 12.5 10
+}
+
+primitive head5 {
+kind 2
+pabc 0 5 -15
+oxyz 0 5 -10
+}
+
+primitive baseplane {
+kind 2
+pabc 0 1 0
+scm base 
+}
+
+primitive light {
+type 1
+light 0.2
+scm white
+oxyz 0 0 0
+}
+
+primitive viewpoint {
+type 2
+oxyz 0 0 0
+rbph 0 0 0
+}
+

@@ -1,0 +1,116 @@
+module stick1 {
+{part1(BC),part2(BC)}
+}
+
+module stick2 {
+{part3(BC),part4(BC)}
+}
+
+module body1a {
+{ball1(BC)(1,0,0,0,23,0,23)}
+{ball1(BC)(1,0,0,0,-23,0,23)}
+{ball1(BC)(1,0,0,0,-23,0,-23)}
+{ball1(BC)(1,0,0,0,23,0,-23)}
+stick1(1,0,0,0,0,0,23)
+stick1(1,0,0,0,0,0,-23)
+stick1(1,0,0,90,23,0,0)
+stick1(1,0,0,90,-23,0,0)
+}
+
+module whiteball {
+{whiteball}
+}
+
+module body1 {
+body1a(1,0,0,0,0,73,0)
+body1a(1,0,0,0,0,2,0)
+
+stick2(1,0,0,0,23,37.5,23)
+stick2(1,0,0,0,-23,37.5,23)
+stick2(1,0,0,0,-23,37.5,-23)
+stick2(1,0,0,0,23,37.5,23)
+
+{cube1(BC)(1,0,0,0,0,37.5,0)}
+{cube2(BC)(1,0,0,0,0,37.5,0)}
+{cube2(BC)(1,0,0,90,0,37.5,0)}
+
+whiteball(1,0,0,0,15,60,-25)
+whiteball(1,0,0,0,-15,60,-25)
+whiteball(1,0,0,0,0,37.5,-25)
+whiteball(1,0,0,0,15,15,-25)
+whiteball(1,0,0,0,-15,15,-25)
+whiteball(1,0,0,0,0,55,25)
+whiteball(1,0,0,0,0,20,25)
+
+}
+
+module stick3 {
+{part1(BC),part5(BC)}
+}
+
+module stick4 {
+{part3(BC),part6(BC)}
+}
+
+module body2a {
+{ball1(BC)(1,0,0,0,17,0,17)}
+{ball1(BC)(1,0,0,0,-17,0,17)}
+{ball1(BC)(1,0,0,0,-17,0,-17)}
+{ball1(BC)(1,0,0,0,17,0,17)}
+stick3(1,0,0,0,0,0,17)
+stick3(1,0,0,0,0,0,-17)
+stick3(1,0,0,90,17,0,0)
+stick3(1,0,0,90,-17,0,0)
+}
+
+module body2 {
+body2a(1,0,0,0,0,63,0)
+body2a(1,0,0,0,0,2,0)
+
+stick4(1,0,0,0,17,0,17)
+stick4(1,0,0,0,-17,0,17)
+stick4(1,0,0,0,-17,0,-17)
+stick4(1,0,0,0,17,0,17)
+
+{cube3(BC)(1,0,0,0,0,32.5,0)}
+{cube4(BC)(1,0,0,0,0,32.5,0)}
+{cube4(BC)(1,0,0,90,0,32.5,0)}
+
+whiteball(1,0,0,0,-10,50,-19)
+whiteball(1,0,0,0,0,32.5,-19)
+whiteball(1,0,0,0,10,15,-19)
+whiteball(1,0,0,0,10,50,19)
+whiteball(1,0,0,0,-10,50,19)
+whiteball(1,0,0,0,10,15,19)
+whiteball(1,0,0,0,-10,15,19)
+}
+
+module leg {
+{legplane(BC),legpart(BC)(1,0,0,-45,-19,0,-19)}
+{legplane(BC),legpart(BC)(1,0,0,45,19,0,-19)}
+}
+
+module head {
+{head1(BC)(1,0,0,0,0,25,0)
+head2(BC)(1,0,0,0,6,20,0)
+head2(BC)(1,0,0,0,-6,20,0)}
+
+{head3(BC)
+head4(BC)(1,0,0,0,0,12.5,0)
+head5(BC)}
+}
+
+module robots {
+head(1,0,0,0,0,150,0)
+body1(1,0,0,0,0,75,0)
+body2(1,0,0,0,0,10,0)
+leg()
+}
+
+module robot {
+robots(0.025,0,0,0,0,0,0)
+}
+
+
+
+

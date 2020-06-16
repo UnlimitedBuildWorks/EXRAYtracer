@@ -1,0 +1,35 @@
+surface_color_file test.scf
+primitive_data_file test.pdf
+module_data_file test.mdf
+object_data_file test.pic
+
+label_size 100
+value_size 100
+scm_size 100
+pd_size 100
+prim_size 100
+light_size 100
+atable_size 100
+btree_size 100000
+
+scrxy 20 20
+scrl 28.57
+pxlxy 512  512
+anti-aliasing 2
+anti-aliasing-factor 0.0
+shadowing 1
+
+Nmin 15
+Nmax 21
+Pmax 1
+
+MaxXYZ 10 10 10
+MinXYZ -10 -1 -10
+
+Ray_Tracing_Method 1
+Transparent_check 1
+
+Ray_Tracing_Branch_Level 1
+Ray_Tracing_Depth_Level 5
+Ray_Tracing_Limit_Power 0.1
+Transparent_Shadowing_Factor .6

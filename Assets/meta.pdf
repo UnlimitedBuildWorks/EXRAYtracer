@@ -1,0 +1,48 @@
+init {
+rbph 0 0 0 
+oxyz 0 0 0
+sg 1
+scm bodycolor1
+}
+
+#define META_BALL_WEIGHT 7
+primitive big_ball {
+kind 5
+pabc 6 6 6
+scm big_color
+sg META_BALL_WEIGHT
+}
+
+primitive middle_ball {
+kind 5
+pabc 4 4 4
+scm middle_color
+sg META_BALL_WEIGHT
+}
+
+primitive small_ball {
+kind 5
+pabc 2 2 2
+scm small_color
+sg META_BALL_WEIGHT
+}
+
+primitive baseplane {
+kind 2
+pabc 0 1 0
+scm NavyBlue 
+}
+
+primitive light {
+type 1
+light 0.2
+scm white
+oxyz 0 0 0
+}
+
+primitive viewpoint {
+type 2
+oxyz 0 0 0
+rbph 0 0 0
+}
+

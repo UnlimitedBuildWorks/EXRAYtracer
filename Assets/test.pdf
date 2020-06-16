@@ -1,0 +1,37 @@
+init {
+light .11
+scm map3
+kind 1
+}
+
+primitive light {
+type 1
+oxyz -10,10,-10
+scm light
+}
+
+primitive view-point {
+oxyz 0,0,0
+rbph 0,0,0
+type 2
+}
+
+primitive base_plane {
+kind 2
+pabc 0,1.0,0
+rbph 0,0,0
+oxyz 0,0,0
+sg 1
+scm base
+}
+
+primitive ball {
+kind 3
+pabc 3,3,3
+rbph 0,0,0
+oxyz 0,0,0
+sg 1
+scale 1
+scm map3
+}
+

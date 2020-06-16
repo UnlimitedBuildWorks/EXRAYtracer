@@ -1,0 +1,35 @@
+surface_color_file meta.scf
+primitive_data_file meta.pdf
+module_data_file meta.mdf
+object_data_file meta.pic
+
+label_size 100
+value_size 100
+scm_size 100
+pd_size 100
+prim_size 400
+light_size 100
+atable_size 300
+btree_size 3000
+
+scrxy 20 20
+scrl 28.57
+pxlxy 300 300
+anti-aliasing 0
+anti-aliasing-factor 1.0
+shadowing 1
+
+Nmin 9
+Nmax 12
+Pmax 5
+
+MaxXYZ 20 20 20
+MinXYZ -20 -20 -20
+
+Ray_Tracing_Method 1
+Transparent_check 1
+
+Ray_Tracing_Branch_Level 1
+Ray_Tracing_Depth_Level 5
+Ray_Tracing_Limit_Power 0.1
+Transparent_Shadowing_Factor 0.5

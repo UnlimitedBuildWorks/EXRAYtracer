@@ -1,0 +1,27 @@
+/* This is sample program for EXRAY. */
+
+module world {
+{light(1,0,0,0,-9,9,-9)}
+
+robot(1,0,0,0,0,0,0)
+
+arobot(1,0,0,0,0,0,-3)
+
+brobot(1,0,0,0,2,0,-1.5)
+
+{viewpoint(1,0,-45,0,0,9,-9)}
+
+baseplane
+
+}
+
+#define BC bodycolor1
+#include robots.mdf
+
+#define BC LimeGreen
+prefix a
+#include robots.mdf
+
+#define BC NavyBlue
+prefix b
+#include robots.mdf
