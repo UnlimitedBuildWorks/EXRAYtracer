@@ -1457,7 +1457,7 @@ namespace EXRAY
                     //{
                     //    EXRAYtracer.MakeBox(p1, p2);
                     //}, null);
-                    EXRAYtracer.queueBox.Enqueue(new EXRAYtracer.OneBox(p1, p2));
+                    EXRAYtracer.queueBox.Enqueue(new EXRAYtracer.OneBox(p1, p2, 0.75f * (float)cnt_prim / (float)view.pmax));
                 }
             TERMINAL_NODE:
                 while (use_btree + cnt + 2 >= max_btree)

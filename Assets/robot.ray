@@ -19,9 +19,9 @@ anti-aliasing 2
 anti-aliasing-factor 1.0
 shadowing 1
 
-Nmin 9
-Nmax 12
-Pmax 5	
+Nmin 12
+Nmax 15
+Pmax 3	
 
 MaxXYZ 5 5 5
 MinXYZ -5 -1 -5

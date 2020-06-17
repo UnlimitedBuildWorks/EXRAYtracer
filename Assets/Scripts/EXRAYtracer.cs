@@ -16,9 +16,10 @@ public class EXRAYtracer : MonoBehaviour
     {
         public Vector3 p1;
         public Vector3 p2;
-        public OneBox(Vector3 pp1, Vector3 pp2)
+        public float alpha;
+        public OneBox(Vector3 pp1, Vector3 pp2, float palpha = 0.3f)
         {
-            p1 = pp1; p2 = pp2;
+            p1 = pp1; p2 = pp2; alpha = palpha;
         }
     }
     public static ConcurrentQueue<OneBox> queueBox;
@@ -111,6 +112,8 @@ public class EXRAYtracer : MonoBehaviour
             GameObject box = Instantiate(prefabBox, Vector3.zero, Quaternion.identity);
             BT_Cube_Script s = box.GetComponent<BT_Cube_Script>();
             s.SetSize(b.p1, b.p2);
+            Material m = box.GetComponent<Renderer>().material;
+            m.color = new Color(0.0f, 1.0f, 0.0f, b.alpha);
         }
         OneLine l;
         while (queueLine.TryDequeue(out l))
