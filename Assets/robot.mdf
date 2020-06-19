@@ -3,11 +3,13 @@
 module world {
 {light(1,0,0,0,-9,9,-9)}
 
-robot(1,0,0,0,0,0,0)
+robot(1,0,0,0,0,0,-1)
 
-arobot(1,0,0,0,0,0,-3)
+arobot(1,0,0,0,0,0,-3.5)
 
-brobot(1,0,0,0,2,0,-1.5)
+brobot(1,0,0,0,2,0,-2.0)
+
+crobot(1,0,0,0,-2,0,-2.0)
 
 {viewpoint(1,0,-45,0,0,9,-9)}
 
@@ -24,4 +26,8 @@ prefix a
 
 #define BC NavyBlue
 prefix b
+#include robots.mdf
+
+#define BC Red
+prefix c
 #include robots.mdf

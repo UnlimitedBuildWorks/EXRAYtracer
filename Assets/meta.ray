@@ -15,8 +15,8 @@ btree_size 3000
 scrxy 20 20
 scrl 28.57
 pxlxy 300 300
-anti-aliasing 0
-anti-aliasing-factor 1.0
+anti-aliasing 1
+anti-aliasing-factor 0.0
 shadowing 1
 
 Nmin 9

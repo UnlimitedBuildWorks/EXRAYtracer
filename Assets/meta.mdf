@@ -7,7 +7,7 @@ module world {
 
 baseplane
 
-meta_balls(.5,0,0,0,0,0,0)
+meta_balls(.4,0,0,0,0,0,0)
 
 }
 module meta_balls {

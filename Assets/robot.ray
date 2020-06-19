@@ -10,18 +10,18 @@ pd_size 100
 prim_size 300
 light_size 100
 atable_size 300
-btree_size 10000
+btree_size 200000
 
 scrxy 20 20
 scrl 28.57
 pxlxy 300 300
-anti-aliasing 2
-anti-aliasing-factor 1.0
+anti-aliasing 1
+anti-aliasing-factor 0.5
 shadowing 1
 
 Nmin 12
 Nmax 15
-Pmax 3	
+Pmax 5	
 
 MaxXYZ 5 5 5
 MinXYZ -5 -1 -5

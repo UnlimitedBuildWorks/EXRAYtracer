@@ -8,33 +8,36 @@ hc 0.4
 }
 
 color big_color {
-type 0
+type 1
 rgb .4196 0.5569 .1373 /* Medium Forest Green */
-rgb 1,0,0
+rgb 0.3,0,0
 fd 0.9
 fh 0.8
 hm 0
 hc 6
+fs1 0.7
 }
 
 color middle_color {
-type 0
+type 1
 rgb .6235 .3725 .6235 /* Blue Violet */
-rgb 0,1,0
+rgb 0,0.3,0
 fd 0.9
 fh 0.8
 hm 0
 hc 6
+fs1 0.7
 }
 
 color small_color {
-type 0
+type 1
 rgb .8471 .8471 .7490 /* Wheat */
-rgb 0,0,1
+rgb 0,0,0.3
 fd 0.9
 fh 0.8
 hm 0
 hc 6
+fs1 0.7
 }
 
 color NavyBlue {
@@ -75,4 +78,19 @@ fd 0.9
 fh 0.8
 hm 0
 hc 6
+}
+
+color base {
+type 0
+rgb 1 .6 .8
+fd 1
+fh 1
+hm 0
+hc 5
+fs1 1
+source 3 white NavyBlue 0 0 1 1
+mapping 0
+rbph 0 90 0
+oxyz 0 0 0
+scale 3 3 3
 }

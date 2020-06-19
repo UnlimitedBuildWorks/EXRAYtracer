@@ -131,7 +131,7 @@ namespace EXRAY
 
         public static tag_prim[] prim;
         //#define PRIM(n) prim[n]
-        public static tag_prim PRIM(in uint n)
+        public static tag_prim PRIM(uint n)
         {
             return prim[n];
         }
@@ -141,17 +141,11 @@ namespace EXRAY
         //extern POINTER max_meta_ball;
         public static uint max_meta_ball;
         //extern double (* stack1)[2];
-        public static double[,] stack1 = new double[0, 2];
         //extern double (* stack2)[2];
-        public static double[,] stack2 = new double[0, 2];
         //extern double (* stack3)[2];
-        public static double[,] stack3 = new double[0, 3];
         //extern POINTER use_meta_list;
-        public static uint use_meta_list;
         //extern POINTER appear_meta_list;
-        public static uint appear_meta_list;
         //extern POINTER* meta_list;
-        public static uint[] meta_list;
 
         /* definition of light */
         public class tag_light
@@ -195,11 +189,12 @@ namespace EXRAY
             public bool flag;
             public double vx, vy, vz;
             public double r, g, b;
-            public uint t_scm;
-            public tag_scm t_scms = new tag_scm();
+            //public uint t_scm;
+            public tag_scm t_scms = null;
             public double nx, ny, nz;
-            public uint scm;
-            public tag_scm scms = new tag_scm();
+            //public uint scm;
+            //public tag_scm scms = new tag_scm();
+            public tag_scm scms = null;
         };
 
         /* definition of atable */

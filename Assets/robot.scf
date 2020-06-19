@@ -26,6 +26,16 @@ hc 4
 fs1 0.7
 }
 
+color Red {
+type 1
+rgb 0.500 0.000 0.000
+fd 0.3
+fh 0.8
+hm 0
+hc 4
+fs1 0.7
+}
+
 color LimeGreen {
 type 2
 rgb 0.196 0.8 0.196

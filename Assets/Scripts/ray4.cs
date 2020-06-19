@@ -10,13 +10,13 @@ using static EXRAY.raysh;
 using static EXRAY.ray0;
 using static EXRAY.ray1;
 using static EXRAY.ray2;
-using static EXRAY.ray3;
+//using static EXRAY.ray3;
 
 namespace EXRAY
 {
-    public class ray4
+    public partial class ray34
     {
-        public static void normal_vector(CROSS_POINT cp)
+        public void normal_vector(CROSS_POINT cp)
         {
             double[] p;
             uint i;
@@ -85,7 +85,7 @@ namespace EXRAY
             }
         }
 
-        public static void sub_mapping(CROSS_POINT cp)
+        public void sub_mapping(CROSS_POINT cp)
         {
             double[] p;
             tag_prim tprim;
@@ -106,7 +106,9 @@ namespace EXRAY
             scmno = tprim.scm;
             if (scm[scmno].source_no == 0)
             {
-                cp.scm = scmno;
+                //cp.scm = scmno;
+                if (cp.scms == null) cp.scms = new tag_scm();
+                scmcpy(cp.scms, scm[scmno]);
                 return;
             }
             /* convert global coordinates to local ones */
@@ -167,7 +169,9 @@ namespace EXRAY
                     break;
             }
 
-            cp.scm = scmno;
+            //cp.scm = scmno;
+            if (cp.scms == null) cp.scms = new tag_scm();
+            scmcpy(cp.scms, scm[scmno]);
             if (tscm.source_no < 3)
             {/* file mapping */
                 ax = (long)(u * tscm.mapping.fx);
@@ -201,17 +205,17 @@ namespace EXRAY
                     {
                         c += 256;
                     }
-                    scm[scmno].r = ((double)c) * (1 / 255.0);
+                    cp.scms.r = ((double)c) * (1 / 255.0);
                     if ((c = tscm.mapping.mem[(uint)(pt + 1)]) < 0)
                     {
                         c += 256;
                     }
-                    scm[scmno].g = ((double)c) * (1 / 255.0);
+                    cp.scms.g = ((double)c) * (1 / 255.0);
                     if ((c = tscm.mapping.mem[(uint)(pt + 2)]) < 0)
                     {
                         c += 256;
                     }
-                    scm[scmno].b = ((double)c) * (1 / 255.0);
+                    cp.scms.b = ((double)c) * (1 / 255.0);
                 }
                 else
                 {
@@ -220,9 +224,9 @@ namespace EXRAY
                     //scm[scmno].r = ((double)fgetc(tscm.mapping.fp)) * (1 / 255.0);
                     //scm[scmno].g = ((double)fgetc(tscm.mapping.fp)) * (1 / 255.0);
                     //scm[scmno].b = ((double)fgetc(tscm.mapping.fp)) * (1 / 255.0);
-                    scm[scmno].r = ((double)tscm.mapping.fp.ReadByte() * (1 / 255.0));
-                    scm[scmno].g = ((double)tscm.mapping.fp.ReadByte() * (1 / 255.0));
-                    scm[scmno].b = ((double)tscm.mapping.fp.ReadByte() * (1 / 255.0));
+                    cp.scms.r = ((double)tscm.mapping.fp.ReadByte() * (1 / 255.0));
+                    cp.scms.g = ((double)tscm.mapping.fp.ReadByte() * (1 / 255.0));
+                    cp.scms.b = ((double)tscm.mapping.fp.ReadByte() * (1 / 255.0));
                 }
             }
             else
@@ -235,22 +239,26 @@ namespace EXRAY
                         //if (!(NEGATIVE(sx - Math.Floor(sx) - 0.5) ^ NEGATIVE(sy - Math.Floor(sy) - 0.5) > 0))
                         if (!(NEGATIVE(sx - Math.Floor(sx) - 0.5) ^ NEGATIVE(sy - Math.Floor(sy) - 0.5)))
                         {
-                            cp.scm = tscm.mapping.scm[0];
+                            //cp.scm = tscm.mapping.scm[0];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[0]]);
                         }
                         else
                         {
-                            cp.scm = tscm.mapping.scm[1];
+                            //cp.scm = tscm.mapping.scm[1];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[1]]);
                         }
                         break;
 
                     case 4:
                         if (sy - Math.Floor(sy) < 0.5)
                         {
-                            cp.scm = tscm.mapping.scm[0];
+                            //cp.scm = tscm.mapping.scm[0];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[0]]);
                         }
                         else
                         {
-                            cp.scm = tscm.mapping.scm[1];
+                            //cp.scm = tscm.mapping.scm[1];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[1]]);
                         }
                         break;
 
@@ -259,19 +267,21 @@ namespace EXRAY
                         alpha *= alpha;
                         scm1 = tscm.mapping.scm[0];
                         scm2 = tscm.mapping.scm[1];
-                        scm[scmno].r = (1 - alpha) * scm[scm1].r + alpha * scm[scm2].r;
-                        scm[scmno].g = (1 - alpha) * scm[scm1].g + alpha * scm[scm2].g;
-                        scm[scmno].b = (1 - alpha) * scm[scm1].b + alpha * scm[scm2].b;
+                        cp.scms.r = (1 - alpha) * scm[scm1].r + alpha * scm[scm2].r;
+                        cp.scms.g = (1 - alpha) * scm[scm1].g + alpha * scm[scm2].g;
+                        cp.scms.b = (1 - alpha) * scm[scm1].b + alpha * scm[scm2].b;
                         break;
 
                     case 6:
                         if (sx - Math.Floor(sx) < 0.5)
                         {
-                            cp.scm = tscm.mapping.scm[0];
+                            //cp.scm = tscm.mapping.scm[0];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[0]]);
                         }
                         else
                         {
-                            cp.scm = tscm.mapping.scm[1];
+                            //cp.scm = tscm.mapping.scm[1];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[1]]);
                         }
                         break;
 
@@ -280,20 +290,22 @@ namespace EXRAY
                         alpha *= alpha;
                         scm1 = tscm.mapping.scm[0];
                         scm2 = tscm.mapping.scm[1];
-                        scm[scmno].r = (1 - alpha) * scm[scm1].r + alpha * scm[scm2].r;
-                        scm[scmno].g = (1 - alpha) * scm[scm1].g + alpha * scm[scm2].g;
-                        scm[scmno].b = (1 - alpha) * scm[scm1].b + alpha * scm[scm2].b;
+                        cp.scms.r = (1 - alpha) * scm[scm1].r + alpha * scm[scm2].r;
+                        cp.scms.g = (1 - alpha) * scm[scm1].g + alpha * scm[scm2].g;
+                        cp.scms.b = (1 - alpha) * scm[scm1].b + alpha * scm[scm2].b;
                         break;
 
                     case 8:
                         r = Math.Sqrt(sx * sx + sy * sy) + 0.25;
                         if (r - Math.Floor(r) < 0.5)
                         {
-                            cp.scm = tscm.mapping.scm[0];
+                            //cp.scm = tscm.mapping.scm[0];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[0]]);
                         }
                         else
                         {
-                            cp.scm = tscm.mapping.scm[1];
+                            //cp.scm = tscm.mapping.scm[1];
+                            scmcpy(cp.scms, scm[tscm.mapping.scm[1]]);
                         }
                         break;
 
@@ -303,26 +315,28 @@ namespace EXRAY
                         alpha *= alpha;
                         scm1 = tscm.mapping.scm[0];
                         scm2 = tscm.mapping.scm[1];
-                        scm[scmno].r = (1 - alpha) * scm[scm1].r + alpha * scm[scm2].r;
-                        scm[scmno].g = (1 - alpha) * scm[scm1].g + alpha * scm[scm2].g;
-                        scm[scmno].b = (1 - alpha) * scm[scm1].b + alpha * scm[scm2].b;
+                        cp.scms.r = (1 - alpha) * scm[scm1].r + alpha * scm[scm2].r;
+                        cp.scms.g = (1 - alpha) * scm[scm1].g + alpha * scm[scm2].g;
+                        cp.scms.b = (1 - alpha) * scm[scm1].b + alpha * scm[scm2].b;
                         break;
                 }
             }
         }
 
-        public static void mapping(CROSS_POINT cp)
+        public void mapping(CROSS_POINT cp)
         {
             uint i;
             uint primno;
             uint j;
             double[] p;
-            uint scmno;
+            //uint scmno;
             uint[] l_sub_meta_list = meta_list;
             int sub_meta_list = 0;
+            double[][] l_sub_meta_list_par = meta_list_par;
             tag_prim tprim;
             double lx, ly, lz, a;
-            uint h_scmno;
+            //uint h_scmno;
+            bool h_scmflag = false;
             double nx, ny, nz, nl;
             double cr, cg, cb;
             double fd, fh;
@@ -333,7 +347,7 @@ namespace EXRAY
             {   /* No Meta-Ball */
                 normal_vector(cp);
                 sub_mapping(cp);
-                scmcpy((cp.scms), scm[cp.scm]);
+                //scmcpy((cp.scms), scm[cp.scm]);
                 return;
             }
             /* Meta-Ball */
@@ -341,11 +355,14 @@ namespace EXRAY
             cr = cg = cb = 0;
             fd = fh = 0;
             primno = cp.primno;
-            h_scmno = max_scm;
+            //h_scmno = max_scm;
+            tag_scm h_scm = new tag_scm();
 
-            for (i = use_meta_list; i > 0; i--)
+            for (i = use_meta_list; i > 0; i--, sub_meta_list++)
             {
-                p = (tprim = PRIM(cp.primno = j = l_sub_meta_list[sub_meta_list++])).par;
+                //p = (tprim = PRIM(cp.primno = j = l_sub_meta_list[sub_meta_list++])).par;
+                tprim = PRIM(cp.primno = j = l_sub_meta_list[sub_meta_list]);
+                p = l_sub_meta_list_par[sub_meta_list];
                 lx = cp.x - tprim.cx;
                 ly = cp.y - tprim.cy;
                 lz = cp.z - tprim.cz;
@@ -372,18 +389,20 @@ namespace EXRAY
 
                 /* Mapping */
                 sub_mapping(cp);
-                scmno = cp.scm;
+                //scmno = cp.scm;
                 if (primno == j)
                 {   /* Most effective SCM */
-                    h_scmno = scmno;
-                    scmcpy((cp.scms), scm[scmno]);
+                    h_scmflag = true;
+                    //h_scmno = scmno;
+                    scmcpy(h_scm, cp.scms);
+                    //scmcpy((cp.scms), scm[scmno]);
                 }
                 /* a is weight */
-                cr += a * scm[scmno].r;
-                cg += a * scm[scmno].g;
-                cb += a * scm[scmno].b;
-                fd += a * scm[scmno].fd;
-                fh += a * scm[scmno].fh;
+                cr += a * cp.scms.r;
+                cg += a * cp.scms.g;
+                cb += a * cp.scms.b;
+                fd += a * cp.scms.fd;
+                fh += a * cp.scms.fh;
             }
             /* Normalization */
             if ((nl = Math.Sqrt(nx * nx + ny * ny + nz * nz)) == 0)
@@ -409,20 +428,22 @@ namespace EXRAY
             else if (fd > 1) fd = 1;
             if (fh < 0) fh = 0;
             else if (fh > 1) fh = 1;
+            cp.scms = h_scm;
             cp.scms.r = cr;
             cp.scms.g = cg;
             cp.scms.b = cb;
             cp.scms.fd = fd;
             cp.scms.fh = fh;
             cp.primno = primno;
-            if ((cp.scm = h_scmno) >= use_scm)
+            //if (h_scmno >= use_scm)
+            if (!h_scmflag)
             {
                 Debug.LogError("*** Inside error(mapping()). ***\n");
                 terminate(1);
             }
         }
 
-        public static void shadowing(uint light_no, CROSS_POINT cp, double vl)
+        public void shadowing(uint light_no, CROSS_POINT cp, double vl)
         {
             double r, g, b;
             double base_t;
@@ -448,8 +469,8 @@ namespace EXRAY
             cps.vy = cp.vy;
             cps.vz = cp.vz;
             cps.primno = cp.primno;
-            cps.t_scm = cp.t_scm;
-            scmcpy(cps.t_scms, cp.t_scms);
+            cps.t_scms = cp.t_scms;
+            //scmcpy(&cps.t_scms, &cp->t_scms);
             cps.flag = cp.flag;
             base_t = 0;
 
@@ -466,7 +487,8 @@ namespace EXRAY
                 if (!cps.flag || cps.t >= vl)
                 {   /* No solution */
                     base_t += vl;
-                    if (cps.t_scm < use_scm)
+                    //if (cps.t_scm < use_scm)
+                    if (null != cps.t_scms)
                     {
                         r *= Math.Exp(cps.t_scms.ka * base_t);
                         g *= Math.Exp(cps.t_scms.kb * base_t);
@@ -486,23 +508,27 @@ namespace EXRAY
                 if (cps.scms.type == 2)
                 {
                     vls = cps.scms.fs2 * (1 - cal_value(Math.Abs(cps.nx * cps.vx + cps.ny * cps.vy + cps.nz * cps.vz)
-                                    , (cps.t_scm >= use_scm ? cps.scms.rf[0] : cps.scms.rf[1])));
+                    //                , (cps.t_scm >= use_scm ? cps.scms.rf[0] : cps.scms.rf[1])));
+                                    , (null == cps.t_scms ? cps.scms.rf[0] : cps.scms.rf[1])));
                     vls = 1.0 + view.ts_factor * (vls - 1.0);
                     r *= vls;
                     g *= vls;
                     b *= vls;
-                    if (cps.t_scm >= use_scm)
+                    //if (cps.t_scm >= use_scm)
+                    if (null == cps.t_scms)
                     {
-                        cps.t_scm = cps.scm;
+                        //cps.t_scm = cps.scm;
+                        cps.t_scms = new tag_scm();
                         scmcpy(cps.t_scms, cps.scms);
                         base_t = 0;
                     }
                     else
                     {
-                        cps.t_scm = max_scm;
+                        //cps.t_scm = max_scm;
                         r *= Math.Exp(cps.t_scms.ka * base_t);
                         g *= Math.Exp(cps.t_scms.kb * base_t);
                         b *= Math.Exp(cps.t_scms.kc * base_t);
+                        cps.t_scms = null;
                     }
                 }
                 vl -= cps.t;
@@ -512,7 +538,7 @@ namespace EXRAY
             cp.b = b;
         }
 
-        public static void factor(double h_s, double h_n, double l_n, double n_s
+        public void factor(double h_s, double h_n, double l_n, double n_s
         , CROSS_POINT cp, double[] fac)
         {
             double a;
@@ -547,7 +573,7 @@ namespace EXRAY
         }
 
         private const double SQRT3 = (1.0 / 1.73205080756);
-        public static void ray_trace(CROSS_POINT cp, int level, double power)
+        public void ray_trace(CROSS_POINT cp, int level, double power)
         {
             int light_no;
             bool status;
@@ -581,8 +607,8 @@ namespace EXRAY
             cps.vz = cp.vz;
             cps.flag = cp.flag;
             cps.primno = cp.primno;
-            cps.t_scm = cp.t_scm;
-            scmcpy(cps.t_scms, cp.t_scms);
+            cps.t_scms = cp.t_scms;
+            //scmcpy(cps.t_scms, cp.t_scms);
 
             /* Ray-Tracing */
             if (view.method)
@@ -723,8 +749,8 @@ namespace EXRAY
                 cps.vx = rx;
                 cps.vy = ry;
                 cps.vz = rz;
-                cps.t_scm = cp.t_scm;
-                scmcpy(cps.t_scms, cp.t_scms);
+                cps.t_scms = cp.t_scms;
+                //scmcpy(cps.t_scms, cp.t_scms);
                 ray_trace(cps, level, power * max_fac);
                 cp.r += fac[0] * cps.r * cps.scms.fs1;
                 cp.g += fac[1] * cps.g * cps.scms.fs1;
@@ -732,15 +758,16 @@ namespace EXRAY
             }
             else if (cps.scms.type == 2)
             {   /* transparent */
-                rf = cal_value(n_s, (cp.t_scm >= use_scm ? cps.scms.rf[0] : cps.scms.rf[1]));
+                //rf = cal_value(n_s, (cp.t_scm >= use_scm ? cps.scms.rf[0] : cps.scms.rf[1]));
+                rf = cal_value(n_s, (null == cp.t_scms ? cps.scms.rf[0] : cps.scms.rf[1]));
                 if (level < view.branch_level || rf >= 0.5)
                 {
                     /* Reflection */
                     cps.vx = rx;
                     cps.vy = ry;
                     cps.vz = rz;
-                    cps.t_scm = cp.t_scm;
-                    scmcpy(cps.t_scms, cp.t_scms);
+                    cps.t_scms = cp.t_scms;
+                    //scmcpy(cps.t_scms, cp.t_scms);
                     max_fac = rf * cps.scms.fs2;
                     ray_trace(cps, level, power * max_fac);
                     cp.r += max_fac * cps.r;
@@ -750,7 +777,8 @@ namespace EXRAY
                 if (level < view.branch_level || rf < 0.5)
                 {
                     /* Refraction */
-                    if (cp.t_scm >= use_scm)
+                    //if (cp.t_scm >= use_scm)
+                    if (null == cp.t_scms)
                     {
                         rrl = cps.scms.n;
                     }
@@ -770,14 +798,17 @@ namespace EXRAY
                     cps.vx = rrx * rrl;
                     cps.vy = rry * rrl;
                     cps.vz = rrz * rrl;
-                    if (cp.t_scm >= use_scm)
+                    //if (cp.t_scm >= use_scm)
+                    if (null == cp.t_scms)
                     {
-                        cps.t_scm = cps.scm;
+                        //cps.t_scm = cps.scm;
+                        cps.t_scms = new tag_scm();
                         scmcpy(cps.t_scms, cps.scms);
                     }
                     else
                     {
-                        cps.t_scm = max_scm;
+                        //cps.t_scm = max_scm;
+                        cps.t_scms = null;
                     }
                     max_fac = (1 - rf) * cps.scms.fs2;
                     ray_trace(cps, level, power * max_fac);
@@ -787,7 +818,8 @@ namespace EXRAY
                 }
             EXIT:;
             }
-            if (cp.t_scm < use_scm)
+            //if (cp.t_scm < use_scm)
+            if (null != cp.t_scms)
             {
                 cp.r *= Math.Exp(cp.t_scms.ka * base_t);
                 cp.g *= Math.Exp(cp.t_scms.kb * base_t);

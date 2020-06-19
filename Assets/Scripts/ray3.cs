@@ -13,15 +13,43 @@ using static EXRAY.ray2;
 
 namespace EXRAY
 {
-    public class ray3
-    {
-        private class p0
+    public partial class ray34
+    { 
+        public double[,] stack1 = new double[0, 2];
+        public double[,] stack2 = new double[0, 2];
+        public double[,] stack3 = new double[0, 3];
+        public uint use_meta_list;
+        public uint appear_meta_list;
+        public uint[] meta_list;
+        public double[][] meta_list_par;
+
+        public ray34()
         {
-            public static bool first_flag = true;
-            public static double last_x, last_y, last_z;
-            public static int last_sgn;
+            //stack1 = (double(*)[2])malloc((20 * max_meta_ball + 10) * 2 * sizeof(double));
+            stack1 = new double[20 * max_meta_ball + 10, 2];
+            //stack2 = (double(*)[2])malloc((2 * max_meta_ball + 10) * 2 * sizeof(double));
+            stack2 = new double[2 * max_meta_ball + 10, 2];
+            //stack3 = (double(*)[2])malloc((20 * max_meta_ball + 10) * 2 * sizeof(double));
+            stack3 = new double[20 * max_meta_ball + 10, 2];
+            //meta_list = (POINTER*)malloc((max_meta_ball + 1) * sizeof(POINTER));
+            meta_list = new uint[max_meta_ball + 1];
+            meta_list_par = new double[max_meta_ball + 1][];  // Save tag_prim.par[20] area.
+            for (int i = 0; i < max_meta_ball + 1; i++) meta_list_par[i] = new double[20];
+
+            use_meta_list = appear_meta_list = 0;
+
+            initialize_cross_point();
         }
-        public static int iof(uint no, double x, double y, double z)
+
+        private class tag_p0
+        {
+            public bool first_flag = true;
+            public double last_x, last_y, last_z;
+            public int last_sgn;
+        }
+        private tag_p0 p0 = new tag_p0();
+
+        public int iof(uint no, double x, double y, double z)
         {
             double lx = 0.0, ly = 0.0, lz = 0.0;
             double sum;
@@ -35,7 +63,7 @@ namespace EXRAY
             //static double last_x, last_y, last_z;
             //static int last_sgn;
 
-            pr = PRIM(no);
+            pr = prim[no];
             if (pr.kind != 5)
             {
                 lx = x - pr.cx;    /* convert global coordinates to local ones */
@@ -80,11 +108,11 @@ namespace EXRAY
                     l_sub_atable = atable; sub_atable = 0;
                     for (i = use_atable; i > 0; i--, sub_atable++)
                     {
-                        if (PRIM(l_sub_atable[sub_atable, 0]).kind != 5)
+                        if (prim[l_sub_atable[sub_atable, 0]].kind != 5)
                         {   /* No Meta-Ball */
                             continue;
                         }
-                        pr = PRIM(l_sub_atable[sub_atable, 0]);
+                        pr = prim[l_sub_atable[sub_atable, 0]];
                         lx = x - pr.cx;
                         ly = y - pr.cy;
                         lz = z - pr.cz;
@@ -130,51 +158,59 @@ namespace EXRAY
         }
 
         /* local variables */
-        private static double vx, vy, vz;
-        private static double px, py, pz;
-        private static bool primchk;
-        private static ulong count;
-        private static uint pdno;
-        private static CROSS_POINT cp;
-        private static bool[] xyzflag = new bool[3];
-        private static byte[] status;
-        private static byte[] l_sub_status;
-        private static int sub_status;
-        private static byte check_status = 0;
-        private static uint t_scm;
-        private static double[] statt;
-        private static uint[] statprimno;
-        private static double[,] statcross;
-        private static double maxt;
-        private static bool neg_vx, neg_vy, neg_vz;
+        private double vx, vy, vz;
+        private double px, py, pz;
+        private bool primchk;
+        private ulong count;
+        private uint pdno;
+        private CROSS_POINT cp;
+        private bool[] xyzflag = new bool[3];
+        private byte[] status;
+        private byte[] l_sub_status;
+        private int sub_status;
+        private byte check_status = 0;
+        //private uint t_scm;
+        private tag_scm t_scms = null;
+        private double[] statt;
+        private uint[] statprimno;
+        private double[,] statcross;
+        private double maxt;
+        private bool neg_vx, neg_vy, neg_vz;
         private const double LESS_LIMIT = (1E-20);
         private const double M_LESS_LIMIT = (-LESS_LIMIT);
 
-        private class p1
+        private class tag_p1
         {
-            public static double[][] x = new double[2][] {
+            public double[][] x = new double[2][] {
                 new double[3], new double[3]
             };
-            public static double[][] xx = new double[2][]
-            {
-                x[0], x[1]
-            };
-            public static double[][] y = new double[2][] {
+            public double[][] xx;
+            public double[][] y = new double[2][] {
                 new double[3], new double[3]
             };
-            public static double[][] yy = new double[2][]
-            {
-                y[0], y[1]
-            };
-            public static double[][] z = new double[2][] {
+            public double[][] yy;
+            public double[][] z = new double[2][] {
                 new double[3], new double[3]
             };
-            public static double[][] zz = new double[2][]
+            public double[][] zz;
+
+            public tag_p1()
             {
-                z[0], z[1]
-            };
+                xx = new double[2][] {
+                    x[0], x[1]
+                };
+                yy = new double[2][] {
+                    y[0], y[1]
+                };
+                zz = new double[2][]
+                {
+                    z[0], z[1]
+                };
+            }
         }
-        public static void btree_cross_point(CROSS_POINT pcp, CROSS_POINT acp)
+        private tag_p1 p1 = new tag_p1();
+
+        public void btree_cross_point(CROSS_POINT pcp, CROSS_POINT acp)
         {
             int i;
             bool chkflag;
@@ -211,9 +247,9 @@ namespace EXRAY
             py = pcp.y;
             pz = pcp.z;
             primchk = pcp.flag;
-            count = PRIM(pcp.primno).count;
-            pdno = PRIM(pcp.primno).pdno;
-            t_scm = pcp.t_scm;
+            count = prim[pcp.primno].count;
+            pdno = prim[pcp.primno].pdno;
+            t_scms = pcp.t_scms;
             cp = acp;
             if (px < view.minx || px > view.maxx || py < view.miny || py > view.maxy
             || pz < view.minz || pz > view.maxz)
@@ -385,7 +421,7 @@ namespace EXRAY
         }
 
         /* Initializing of cross_point() */
-        public static void initialize_cross_point()
+        private void initialize_cross_point()
         {
             //status = malloc((use_atable + 1) * sizeof(char));
             status = new byte[use_atable + 1];
@@ -403,7 +439,7 @@ namespace EXRAY
             //}
         }
 
-        public static bool search_btree(int n, int bt, uint[] l_bt, double[][] x, double[][] y, double[][] z)
+        public bool search_btree(int n, int bt, uint[] l_bt, double[][] x, double[][] y, double[][] z)
         {
             uint i;
             bool work;
@@ -693,12 +729,13 @@ namespace EXRAY
             return (false);         /* This line is dummy for lint. */
         }
 
-        public static double siki(double t)
+        public double siki(double t)
         {
             uint i;
             double[] p;
             uint[] l_sub_meta_list = meta_list;
             int sub_meta_list = 0;
+            double[][] l_sub_meta_list_par = meta_list_par;
             double sum, r, a, tt;
             //REGISTER_DOUBLE(sum);
             //REGISTER_DOUBLE(r);
@@ -707,9 +744,10 @@ namespace EXRAY
 
             tt = t;
             sum = (-1);
-            for (i = use_meta_list; i > 0; i--)
+            for (i = use_meta_list; i > 0; i--, sub_meta_list++)
             {
-                p = PRIM(l_sub_meta_list[sub_meta_list++]).par;
+                //p = prim[l_sub_meta_list[sub_meta_list]].par;
+                p = l_sub_meta_list_par[sub_meta_list];
                 if ((r = (p[17] * tt + 2 * p[18]) * tt + p[19]) >= p[14])
                 {
                     continue;
@@ -731,12 +769,13 @@ namespace EXRAY
             return (sum);
         }
 
-        public static double siki_differential(double t, out double differential)
+        public double siki_differential(double t, out double differential)
         {
             uint i;
             double[] p;
             uint[] l_sub_meta_list = meta_list;
             int sub_meta_list = 0;
+            double[][] l_sub_meta_list_par = meta_list_par;
             double sum, r, a;
             //REGISTER_DOUBLE(sum);
             //REGISTER_DOUBLE(r);
@@ -744,9 +783,10 @@ namespace EXRAY
 
             sum = (-1);
             differential = 0;
-            for (i = use_meta_list; i > 0; i--)
+            for (i = use_meta_list; i > 0; i--, sub_meta_list++)
             {
-                p = PRIM(l_sub_meta_list[sub_meta_list++]).par;
+                //p = prim[l_sub_meta_list[sub_meta_list]].par;
+                p = l_sub_meta_list_par[sub_meta_list];
                 if ((r = (p[17] * t + 2 * p[18]) * t + p[19]) >= p[14])
                 {
                     continue;
@@ -772,12 +812,13 @@ namespace EXRAY
             return (sum);
         }
 
-        public static void siki_sub(ref uint no, double t)
+        public void siki_sub(ref uint no, double t)
         {
             uint i;
             double[] p;
             uint[] l_sub_meta_list = meta_list;
             int sub_meta_list = 0;
+            double[][] l_sub_meta_list_par = meta_list_par;
             double r, a, max;
             //REGISTER_DOUBLE(r);
             //REGISTER_DOUBLE(a);
@@ -786,7 +827,8 @@ namespace EXRAY
             max = 0;
             for (i = use_meta_list; i > 0; i--, sub_meta_list++)
             {
-                p = PRIM(l_sub_meta_list[sub_meta_list]).par;
+                //p = prim[l_sub_meta_list[sub_meta_list]].par;
+                p = l_sub_meta_list_par[sub_meta_list];
                 if ((r = (p[17] * t + 2 * p[18]) * t + p[19]) >= p[14])
                 {
                     continue;
@@ -812,7 +854,7 @@ namespace EXRAY
             }
         }
 
-        public static void meta_cross_point()
+        public void meta_cross_point()
         {
             uint i;
             uint j;
@@ -856,12 +898,14 @@ namespace EXRAY
             for (i = 0; i < use_atable && j > 0; i++)
             {
                 if (status[i] != check_status
-                    || (tprim = PRIM(k = atable[i, 0])).kind != 5)
+                    || (tprim = prim[k = atable[i, 0]]).kind != 5)
                 {
                     continue;
                 }
                 appear_meta_list--;
-                p = tprim.par;
+                //p = tprim.par;
+                p = meta_list_par[use_meta_list];
+                for (int l = 0; l < 20; l++) p[l] = tprim.par[l];
                 x = px - tprim.cx;
                 y = py - tprim.cy;
                 z = pz - tprim.cz;
@@ -893,7 +937,8 @@ namespace EXRAY
 
             for (i = 0; i < use_meta_list; i++)
             {
-                p = PRIM(meta_list[i]).par;
+                //p = prim[meta_list[i]].par;
+                p = meta_list_par[i];
                 /* calculate outside */
                 if (p[17] == 0) continue;
                 d = Math.Sqrt(p[15]);
@@ -1193,14 +1238,15 @@ namespace EXRAY
                 by = vy * sol + py;
                 bz = vz * sol + pz;
                 siki_sub(ref primno, (double)sol);
-                if (scm[PRIM(primno).scm].type != 2 || (!view.trans)
-                    || t_scm > use_scm)
+                if (scm[prim[primno].scm].type != 2 || (!view.trans)
+                //    || t_scm > use_scm)
+                      || null == t_scms)
                 {
                     break;
                 }
                 for (j = 0; j < use_trans; j++)
                 {
-                    if (PRIM(k = atable[trans[j], 0]).kind == 5)
+                    if (prim[k = atable[trans[j], 0]].kind == 5)
                     {   /* Meta-Ball */
                         continue;
                     }
@@ -1215,11 +1261,12 @@ namespace EXRAY
             if (solno <= 0) goto NEXT_ROOT;
 
             EXIT:
-            if (t_scm < use_scm)
+            //if (t_scm < use_scm)
+            if (null != t_scms)
             {
                 if (iov)
                 {       /* first time */
-                    if (solno == 0 || scm[PRIM(primno).scm].type == 2)
+                    if (solno == 0 || scm[prim[primno].scm].type == 2)
                     {
                         /* save data */
                         h_solno = 0;
@@ -1266,7 +1313,7 @@ namespace EXRAY
             }
         }
 
-        public static bool cross_point(uint ano, ref double t, ref uint primno, bool check
+        public bool cross_point(uint ano, ref double t, ref uint primno, bool check
         , ref double bbx, ref double bby, ref double bbz)
         {
             uint pno;
@@ -1305,13 +1352,14 @@ namespace EXRAY
                 statt[ano] = 3 * INFINITY;
             }
             status[ano] = check_status;
-            if (PRIM(atable[ano, 0]).kind == 5)
+            if (prim[atable[ano, 0]].kind == 5)
             {   /* Meta-Ball */
                 appear_meta_list++;
                 return (false);
             }
-            if (scm[PRIM(atable[ano, 0]).scm].type != 2
-            || (!view.trans) || t_scm >= use_scm)
+            if (scm[prim[atable[ano, 0]].scm].type != 2
+            //|| (!view.trans) || t_scm >= use_scm)
+            || (!view.trans) || null == t_scms)
             {
                 transchk = false;
             }
@@ -1328,12 +1376,12 @@ namespace EXRAY
             solflag = false;
             for (pno = top; pno <= bottom; pno++)
             {
-                /* compute cross points of PRIM(pno) */
-                bx = px - PRIM(pno).cx; /* convert global coordinates */
-                by = py - PRIM(pno).cy; /*       to local ones        */
-                bz = pz - PRIM(pno).cz;
-                p = PRIM(pno).par;
-                switch (PRIM(pno).kind)
+                /* compute cross points of prim[pno) */
+                bx = px - prim[pno].cx; /* convert global coordinates */
+                by = py - prim[pno].cy; /*       to local ones        */
+                bz = pz - prim[pno].cz;
+                p = prim[pno].par;
+                switch (prim[pno].kind)
                 {
                     case 1:         /* CHOKUHOUTAI */
                         r1 = -INFINITY;
@@ -1462,7 +1510,8 @@ namespace EXRAY
                 if (solno <= 0) continue;
 
                 /* same primitive check */
-                if (t_scm < use_scm && scm[PRIM(pno).scm].type == 2)
+                //if (t_scm < use_scm && scm[prim[pno).scm].type == 2)
+                if (null != t_scms && scm[prim[pno].scm].type == 2)
                 {
                     works = true;   /* Negative */
                 }
@@ -1470,7 +1519,7 @@ namespace EXRAY
                 {
                     works = false;  /* Positive */
                 }
-                if (works ^ NEGATIVE(PRIM(pno).sg))
+                if (works ^ NEGATIVE(prim[pno].sg))
                 {
                     sol1 = sol2;
                 }
@@ -1536,7 +1585,7 @@ namespace EXRAY
             return (solflag);
         }
 
-        public static void normal_cross_point(CROSS_POINT pcp, CROSS_POINT acp)
+        public void normal_cross_point(CROSS_POINT pcp, CROSS_POINT acp)
         {
             uint i;
             double st, t = 0.0;
@@ -1556,9 +1605,9 @@ namespace EXRAY
             py = pcp.y;
             pz = pcp.z;
             primchk = pcp.flag;
-            count = PRIM(pcp.primno).count;
-            pdno = PRIM(pcp.primno).pdno;
-            t_scm = pcp.t_scm;
+            count = prim[pcp.primno].count;
+            pdno = prim[pcp.primno].pdno;
+            t_scms = pcp.t_scms;
             cp = acp;
 
             st = maxt = 2 * INFINITY;

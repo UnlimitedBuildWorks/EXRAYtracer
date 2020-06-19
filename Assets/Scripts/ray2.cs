@@ -71,13 +71,9 @@ namespace EXRAY
                 terminate(1);
             }
             //stack1 = (double(*)[2])malloc((20 * max_meta_ball + 10) * 2 * sizeof(double));
-            stack1 = new double[20 * max_meta_ball + 10, 2];
             //stack2 = (double(*)[2])malloc((2 * max_meta_ball + 10) * 2 * sizeof(double));
-            stack2 = new double[2 * max_meta_ball + 10, 2];
             //stack3 = (double(*)[2])malloc((20 * max_meta_ball + 10) * 2 * sizeof(double));
-            stack3 = new double[20 * max_meta_ball + 10, 2];
             //meta_list = (POINTER*)malloc((max_meta_ball + 1) * sizeof(POINTER));
-            meta_list = new uint[max_meta_ball + 1];
             //trans = (POINTER*)malloc((use_atable + 1) * sizeof(POINTER));
             trans = new uint[use_atable + 1];
             //if (stack1 == NULL || stack2 == NULL || stack3 == NULL
