@@ -1,4 +1,4 @@
-init {
+Init {
 light .11
 scm map3
 kind 1

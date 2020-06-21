@@ -72,7 +72,7 @@ public class EXRAYtracer : MonoBehaviour
         int argc = 2;
         string[] argv = {
             dataPath,
-            dataPath + "/robot.ray"
+            dataPath + "/ball.ray"
         };
 
         Debug.Log("Start to execute EXRAY main routine.");

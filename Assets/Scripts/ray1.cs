@@ -123,6 +123,7 @@ namespace EXRAY
             //	fprintf(stderr, "*** Can't open '%s' file. ***\n", fname);
             //	terminate(1);
             //}
+            tag_view view = views[0];
             using (fp = new StreamReader(fname))
             {
                 /* read datas from initialize file */

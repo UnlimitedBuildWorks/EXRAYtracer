@@ -15,7 +15,7 @@ btree_size 100000
 scrxy 7.28 7.28
 scrl 10
 pxlxy 800  800
-anti-aliasing 2
+anti-aliasing 1
 anti-aliasing-factor 1.0
 shadowing 1
 
@@ -26,7 +26,7 @@ Pmax 4
 MaxXYZ 10 10 10
 MinXYZ -10 -1 -10
 
-Ray_Tracing_Method 1
+Ray_Tracing_Method 0
 Transparent_check 1
 
 Ray_Tracing_Branch_Level 1

@@ -1,7 +1,16 @@
 module world {
 mod1(1,0,0,0,0,0,0)
 {light(1,0,0,0,0, 1000, 0)}
-{view-point(1,0,-40,0,3,15,-18)}
+view-points(1,0,-30,0,0,2,0)
+}
+
+module view-points{
+vp(1,10,0,0,0,0,0)
+vp(1,-10,0,0,0,0,0)
+}
+
+module vp {
+{view-point(1,0,0,0,0,0,-15)}
 }
 
 module mod1{

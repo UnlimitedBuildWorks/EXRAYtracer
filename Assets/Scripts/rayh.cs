@@ -180,7 +180,8 @@ namespace EXRAY
             public double limit_power;
             public double ts_factor;
         };
-        public static tag_view view = new tag_view();
+        public static tag_view[] views = new tag_view[] { new tag_view() };
+        //public static tag_view view = new tag_view();
 
         public class CROSS_POINT {
             public double t;

@@ -918,11 +918,65 @@ namespace EXRAY
                     return (true);
 
                 case 2:         /* View Point */
+                    tag_view view;
                     if (viewflag)
-                    {   /* Double define view-point */
-                        Debug.LogErrorFormat("*** There are two or more view-point in MODULE({0}) in '{1}'. ***\n"
-                            , poilabel(m_no), fname);
-                        terminate(1);
+                    {   /* Multiple define view-point */
+                        //    Debug.LogErrorFormat("*** There are two or more view-point in MODULE({0}) in '{1}'. ***\n"
+                        //        , poilabel(m_no), fname);
+                        //    terminate(1);
+                        Array.Resize(ref views, views.Length + 1);
+                        views[views.Length - 1] = view = new tag_view();
+                        // Duplicate view[0] to new view.
+                        //public double[] mat = new double[10];
+                        //public double cx, cy, cz;
+                        //public double scrx, scry, scrl;
+                        view.scrx = views[0].scrx;
+                        view.scry = views[0].scry;
+                        view.scrl = views[0].scrl;
+                        //public int pxlx, pxly;
+                        view.pxlx = views[0].pxlx;
+                        view.pxly = views[0].pxly;
+                        //public double k1, k2, k3, k4;
+                        view.k1 = views[0].k1;
+                        view.k2 = views[0].k2;
+                        view.k3 = views[0].k3;
+                        view.k4 = views[0].k4;
+                        //public int anti;
+                        view.anti = views[0].anti;
+                        //public double anti_aliasing_factor;
+                        view.anti_aliasing_factor = views[0].anti_aliasing_factor;
+                        //public bool shadow;
+                        view.shadow = views[0].shadow;
+                        //public double maxx, maxy, maxz;
+                        view.maxx = views[0].maxx;
+                        view.maxy = views[0].maxy;
+                        view.maxz = views[0].maxz;
+                        //public double minx, miny, minz;
+                        view.minx = views[0].minx;
+                        view.miny = views[0].miny;
+                        view.minz = views[0].minz;
+                        //public int nmin, nmax, pmax;
+                        view.nmin = views[0].nmin;
+                        view.nmax = views[0].nmax;
+                        view.pmax = views[0].pmax;
+                        //public bool method;
+                        view.method = views[0].method;
+                        //public bool trans;
+                        view.trans = views[0].trans;
+                        //public string Object;
+                        view.Object = views[0].Object;
+                        //public int branch_level;
+                        view.branch_level = views[0].branch_level;
+                        //public int depth_level;
+                        view.depth_level = views[0].depth_level;
+                        //public double limit_power;
+                        view.limit_power = views[0].limit_power;
+                        //public double ts_factor;
+                        view.ts_factor = views[0].ts_factor;
+                    }
+                    else
+                    {
+                        view = views[0];
                     }
                     viewflag = true;
                     for (i = 0; i < 9; i++) view.mat[i] = smat[i];
@@ -1006,7 +1060,7 @@ namespace EXRAY
         }
 
         public static int chk3D1(tag_prim tprim, double x1, double y1, double z1
-       , double x2, double y2, double z2)
+        , double x2, double y2, double z2)
         {
             bool flag;
             double max, min;
@@ -1162,7 +1216,7 @@ namespace EXRAY
         }
 
         public static int chk3D2(tag_prim tprim, double x1, double y1, double z1
-       , double x2, double y2, double z2)
+        , double x2, double y2, double z2)
         {
             int i;
             int sg = 0;
@@ -1195,7 +1249,7 @@ namespace EXRAY
         }
 
         public static int chk3D3(tag_prim tprim, double x1, double y1, double z1
-       , double x2, double y2, double z2)
+        , double x2, double y2, double z2)
         {
             double x, y, z;
             double a, b, c;
@@ -1321,6 +1375,7 @@ namespace EXRAY
 
             n = -1;
             use_btree = 0;
+            tag_view view = views[0];
             area[0] = view.minx;    /* Ray Tracing Area's coordinates */
             area[1] = view.miny;
             area[2] = view.minz;
@@ -1375,7 +1430,7 @@ namespace EXRAY
 
         /* Build a part of btree */
         public static bool bbtree(int n, int list_sub, uint[] l_list_sub, int list, uint[] l_list, double[] area
-	   , out double time)
+        , out double time)
         {
             uint i;
             uint j;
@@ -1441,6 +1496,7 @@ namespace EXRAY
                 }
             }
             l_temp2[temp2] = 0;
+            tag_view view = views[0];
             if (check || cnt == 0 || n >= view.nmax
             || (n > view.nmin && cnt_prim <= view.pmax))
             {
@@ -1581,6 +1637,7 @@ namespace EXRAY
             max = INFINITY;
             min = (-INFINITY);
 
+            tag_view view = views[0];
             for (i = 0; i < use_atable; i++)
             {
                 top = atable[i, 0];

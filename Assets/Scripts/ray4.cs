@@ -455,6 +455,7 @@ namespace EXRAY
             g = light[light_no].g;
             b = light[light_no].b;
 
+            tag_view view = views[0];
             if (!view.shadow)
             {       /* No shadowing */
                 cp.r = r;
@@ -594,6 +595,8 @@ namespace EXRAY
             base_t = 0;
             level++;
             cp.r = cp.g = cp.b = 0;
+
+            tag_view view = views[0];
             /* Terminal condition */
             if (level > view.depth_level || power < view.limit_power)
             {

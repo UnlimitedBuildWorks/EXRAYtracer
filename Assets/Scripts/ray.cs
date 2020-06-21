@@ -17,43 +17,44 @@ namespace EXRAY
     public class ray
     {
         private const int MAX_PARALLEL = 4;
+        private static ParallelOptions options;
 
         static public int main(int ScreenX, int ScreenY, int argc, string[] argv)
         {
             //double (*tbl0)[3], (*tbl1)[3];
-            double[,] tbl0 = new double[0, 3];
-            double[,] tbl1 = new double[0, 3];
-            int pxlx, pxly;
+            //double[,] tbl0 = new double[0, 3];
+            //double[,] tbl1 = new double[0, 3];
+            //int pxlx, pxly;
             //int w;
             //double[] mat;
             //int x;
-            int y;
-            FileStream fp;
+            //int y;
+            //FileStream fp;
             //double vx, vy, vz;
             string temp_file = "";
             byte[] l_buffer = new byte[0], l_buffer_sub;
             int buffer = 0, buffer_sub;
             //int px, py;
             bool cnt_flag;
-            int begin_y, begin_yy;
-            uint i, j;
-            uint k;
-            CROSS_POINT cp = new CROSS_POINT();
-            FileStream fps;
+            //int begin_y, begin_yy;
+            //uint i, j;
+            //uint k;
+            //CROSS_POINT cp = new CROSS_POINT();
+            //FileStream fps;
             //double (*tbl2)[3], (*swap_tbl)[3];
-            double[,] tbl2 = new double[0, 3];
-            double[,] swap_tbl = new double[0, 3];
+            //double[,] tbl2 = new double[0, 3];
+            //double[,] swap_tbl = new double[0, 3];
             //double vl;
-            double anti_aliasing_factor = 0.0f;
+            //double anti_aliasing_factor = 0.0f;
             //double max_diff, s;
             //double ss;
             //double[] clr = new double[3];
-            double max, a, r;
+            //double max, a, r;
 
             //EXRAYcontext = currentContext;
             dataPath = argv[0];
 
-            ParallelOptions options = new ParallelOptions();
+            options = new ParallelOptions();
             options.MaxDegreeOfParallelism = 1;
 
             /* check of C-Compiler */
@@ -103,8 +104,8 @@ namespace EXRAY
                 //    fprintf(stderr, "*** No memory for allocation. ***\n");
                 //    terminate(1);
                 //}
-                l_buffer = new byte[view.pxlx * 3]; buffer = 0;
-                
+                l_buffer = new byte[views[0].pxlx * 3]; buffer = 0;
+
                 //sprintf(temp_file, "temp%d.tmp", getpid());
                 temp_file = dataPath + "/temp" + Guid.NewGuid().ToString("N") + ".tmp";
 
@@ -112,7 +113,7 @@ namespace EXRAY
                  *           between MS-C(older than version4.0) and             *
                  *           another C-Compiler(UNIX-C or MS-C(version4.0) usw). */
                 //rename(view.Object, temp_file);
-                File.Move(view.Object, temp_file);
+                File.Move(views[0].Object, temp_file);
             }
             // Override Screen size.
             //view.pxlx = ScreenX;
@@ -125,6 +126,53 @@ namespace EXRAY
             //    terminate(1);
             //}
             //using (fp = new FileStream(view.Object, FileMode.Create, FileAccess.Write))
+
+            for (int i = 0; i < views.Length; i++)
+            {
+                raytraceOneView(views[i]);
+            }
+
+            /* terminated message */
+            Debug.Log("Terminated Extended Ray-Tracing Program.\n");
+
+            /* normal terminated */
+            //terminate(0);
+            return 0;
+
+        }
+
+        private static int raytraceOneView(tag_view view)
+        {
+            //double (*tbl0)[3], (*tbl1)[3];
+            double[,] tbl0 = new double[0, 3];
+            double[,] tbl1 = new double[0, 3];
+            int pxlx, pxly;
+            //int w;
+            //double[] mat;
+            //int x;
+            int y;
+            FileStream fp;
+            //double vx, vy, vz;
+            string temp_file = "";
+            byte[] l_buffer = new byte[0], l_buffer_sub;
+            int buffer = 0, buffer_sub;
+            //int px, py;
+            bool cnt_flag = false;
+            int begin_y, begin_yy;
+            uint i, j;
+            uint k;
+            CROSS_POINT cp = new CROSS_POINT();
+            FileStream fps;
+            //double (*tbl2)[3], (*swap_tbl)[3];
+            double[,] tbl2 = new double[0, 3];
+            double[,] swap_tbl = new double[0, 3];
+            //double vl;
+            double anti_aliasing_factor = 0.0f;
+            //double max_diff, s;
+            //double ss;
+            //double[] clr = new double[3];
+            double max, a, r;
+
             {
 
                 pxlx = view.pxlx;
@@ -556,11 +604,9 @@ namespace EXRAY
             }
 
             /* terminated message */
-            Debug.Log("Terminated Extended Ray-Tracing Program.\n");
+            Debug.Log("Finished one view.\n");
 
-            /* normal terminated */
-            //terminate(0);
-            return 0;
+            return (0);
         }
     }
 }

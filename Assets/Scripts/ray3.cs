@@ -251,6 +251,7 @@ namespace EXRAY
             pdno = prim[pcp.primno].pdno;
             t_scms = pcp.t_scms;
             cp = acp;
+            tag_view view = views[0];
             if (px < view.minx || px > view.maxx || py < view.miny || py > view.maxy
             || pz < view.minz || pz > view.maxz)
             {
@@ -1232,6 +1233,7 @@ namespace EXRAY
                 goto EXIT;
             }
 
+            tag_view view = views[0];
             for (; (solno) > 0; (solno)--)
             {
                 bx = vx * sol + px;
@@ -1357,6 +1359,7 @@ namespace EXRAY
                 appear_meta_list++;
                 return (false);
             }
+            tag_view view = views[0];
             if (scm[prim[atable[ano, 0]].scm].type != 2
             //|| (!view.trans) || t_scm >= use_scm)
             || (!view.trans) || null == t_scms)
